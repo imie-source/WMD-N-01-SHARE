@@ -1,0 +1,43 @@
+
+<!DOCTYPE>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+</head>
+
+<body>
+</body>
+<script>
+"use strict";
+var org={};
+org.Shape = class {
+  constructor(name){
+    this.name=name;
+  }
+  areaConsole(){
+    console.log('la surface de',this.name,' est de ',this.area);
+  }
+}
+
+
+org.Polygone = class extends org.Shape{
+  constructor(hauteur, largeur,name){
+    super(name);
+    this.hauteur = hauteur;
+    this.largeur = largeur;
+  }
+  get area() {
+    return this.hauteur*this.largeur;
+  }
+}
+var p = new org.Polygone(10,20,'test');
+p.areaConsole();
+
+//const cp = new ColorPoint(25, 8, 'green');
+//console.log(cp.toString());
+
+</script>
+
+</html>
