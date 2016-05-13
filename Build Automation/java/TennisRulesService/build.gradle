@@ -3,6 +3,7 @@ group='imie'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 
 
@@ -12,7 +13,7 @@ repositories {
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'fr.imie.game.Main'
+		attributes 'Main-Class': 'org.imie.Main'
 	}
 }
 
@@ -26,19 +27,12 @@ dependencies {
   compile 'javax:javaee-api:7.0'
 }
 
-configurations {
-    api
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
 }
+build.dependsOn(jacocoTestReport)
 
-dependencies {
-    api(
-    	'org.mockito:mockito-core:1.+'
-    )
-}
-
-task extractApi(type: Copy) {
-    from { // use of closure defers evaluation until execution time
-        configurations.api.collect { zipTree(it) }
-    } 
-    into "$buildDir/api/"
-}
